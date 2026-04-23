@@ -1,0 +1,350 @@
+/* --- CSS VARIABLES & PREMIUM GLOBALS --- */
+:root {
+  --deep-red: #8B0000;
+  --rich-orange: #FF6B35;
+  --gold-accent: #D4AF37;
+  --dark-bg: #1A1A1A;
+  --white: #ffffff;
+  --text-muted: #a1a1aa;
+}
+
+/* 
+  Theme Decision:
+  Using a dark gradient base (black to deep red) for a premium, elegant 
+  restaurant atmosphere. The gold accents provide a high-end feel.
+*/
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: linear-gradient(135deg, #000000 0%, var(--deep-red) 60%, rgba(255, 107, 53, 0.4) 100%);
+  color: var(--white);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#root {
+  width: 100%;
+  max-width: 600px;
+  padding: 2rem 1rem;
+}
+
+/* --- GAME HEADER --- */
+.game-container {
+  text-align: center;
+}
+
+.brand-logo {
+  max-width: 160px;
+  height: auto;
+  margin: 0 auto 1.5rem auto;
+  display: block;
+  border-radius: 50%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+  border: 2px solid var(--gold-accent);
+}
+
+.game-header h1 {
+  color: var(--gold-accent);
+  margin-bottom: 0.5rem;
+  font-size: 2.2rem;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.game-header p {
+  color: var(--white);
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+/* --- GAME BOARD GRID --- */
+.game-board {
+  display: grid;
+  /* Desktop: 3 columns */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin: 0 auto;
+}
+
+/* Mobile: 2 columns */
+@media (max-width: 600px) {
+  .game-board {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+/* --- GAME CARD (PREMIUM BOX) --- */
+/* 
+  UI Improvement: 
+  Cards feature a subtle deep red to rich orange gradient with a gold border.
+  Soft shadow and hover scaling improves tactile feedback.
+*/
+.game-card {
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, var(--deep-red) 0%, #a52a2a 100%);
+  border: 2px solid rgba(212, 175, 55, 0.3); /* Subtle gold border */
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, border-color 0.3s ease;
+  position: relative;
+  text-align: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.card-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--gold-accent);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+/* Hover effects */
+.game-card:hover:not(.inactive):not(.selected) {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 15px 30px rgba(212, 175, 55, 0.2); /* Gold glow */
+  border-color: var(--gold-accent);
+}
+
+/* Base Click Animation */
+.game-card:active:not(.inactive) {
+  transform: scale(0.95);
+}
+
+/* Active/Unlocked states */
+.game-card.selected {
+  background: var(--rich-orange);
+  border-color: var(--gold-accent);
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.5);
+  cursor: default;
+}
+
+.game-card.inactive {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: scale(0.95);
+  box-shadow: none;
+  border-color: transparent;
+}
+
+/* --- PHONE MODAL (TRUST UX) --- */
+/*
+  UI Decision:
+  White card on dark background creates high contrast and trust.
+*/
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 26, 26, 0.9); /* Dark bg with opacity */
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+  background: var(--white);
+  color: var(--dark-bg);
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-content h2 {
+  color: var(--deep-red);
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.8rem;
+}
+
+.modal-subtitle {
+  color: var(--text-muted);
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+.phone-form input {
+  width: 85%;
+  padding: 1rem;
+  font-size: 1.2rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  text-align: center;
+  letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+  transition: border-color 0.3s ease;
+  outline: none;
+  color: var(--dark-bg);
+}
+
+.phone-form input:focus {
+  border-color: var(--rich-orange);
+}
+
+.error-text {
+  color: var(--deep-red);
+  font-size: 0.9rem;
+  margin: 0 0 1.2rem 0;
+  font-weight: 500;
+}
+
+.unlock-button {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, var(--deep-red) 0%, var(--rich-orange) 100%);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin-top: 0.5rem;
+  box-shadow: 0 4px 10px rgba(255, 107, 53, 0.3);
+}
+
+.unlock-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(255, 107, 53, 0.5);
+}
+
+.unlock-button:disabled {
+  background: #d1d5db;
+  color: #9ca3af;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.trust-signals {
+  margin-top: 2rem;
+  font-size: 0.85rem;
+  color: #6b7280;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.trust-signals p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* --- REWARD REVEAL --- */
+.reward-reveal {
+  margin-top: 3rem;
+  background: rgba(26, 26, 26, 0.8);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  padding: 2.5rem 1.5rem;
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.reward-reveal h2 {
+  color: var(--gold-accent);
+  margin-top: 0;
+}
+
+/* Highlighted card for reward */
+.reward-box {
+  background: linear-gradient(135deg, var(--rich-orange) 0%, var(--gold-accent) 100%);
+  color: var(--dark-bg);
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin: 1.5rem 0;
+  box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+}
+
+.reward-box h3 {
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+.claim-text {
+  color: var(--white);
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.claim-subtext {
+  color: var(--rich-orange);
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  opacity: 0.8;
+  font-weight: 600;
+}
+
+.special-badge {
+  display: inline-block;
+  background: var(--deep-red);
+  color: var(--white);
+  padding: 0.5rem 1.2rem;
+  border-radius: 9999px;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  animation: pulseBadge 2s infinite ease-in-out;
+  box-shadow: 0 4px 10px rgba(139, 0, 0, 0.4);
+  border: 1px solid var(--gold-accent);
+}
+
+.reset-btn {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--text-muted);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  margin-top: 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reset-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--white);
+}
+
+/* --- ANIMATIONS (LIGHTWEIGHT) --- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseBadge {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); box-shadow: 0 6px 15px rgba(212, 175, 55, 0.6); }
+  100% { transform: scale(1); }
+}
+
+.bounce-in {
+  animation: bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0.8); opacity: 0; }
+  50% { transform: scale(1.02); opacity: 1; }
+  100% { transform: scale(1); }
+}
